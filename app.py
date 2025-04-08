@@ -1,5 +1,17 @@
 
 import streamlit as st
+
+import sys
+try:
+    import pysqlite3
+    sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
+except ImportError:
+    raise RuntimeError(
+        "pysqlite3 is required to run Chroma with compatible SQLite version. "
+        "Please make sure it's installed."
+    )
+
+
 from langchain.llms import OpenAI
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
